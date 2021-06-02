@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import operations from '../../redux/operations';
 import ContactList from '../ContactList';
@@ -22,7 +22,7 @@ export default function Form() {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
-  const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.currentTarget;
     switch (name) {
       case 'name':
@@ -34,17 +34,14 @@ export default function Form() {
       default:
         console.warn(`error`);
     }
-  }, []);
+  };
 
-  const handleSubmit = useCallback(
-    (e: React.FormEvent<HTMLFormElement>) => {
-      e.preventDefault();
-      dispatch(operations.addContact({ name, number }));
-      setName('');
-      setNumber('');
-    },
-    [name, number, dispatch],
-  );
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    dispatch(operations.addContact({ name, number }));
+    setName('');
+    setNumber('');
+  };
 
   return (
     <div className={style.formConteiner}>

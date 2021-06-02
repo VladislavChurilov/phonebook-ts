@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { authOperations } from '../../redux/auth';
 import style from './Login.module.css';
@@ -19,7 +19,7 @@ export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.currentTarget;
     switch (name) {
       case 'email':
@@ -31,16 +31,13 @@ export default function Login() {
       default:
         console.warn(`error`);
     }
-  }, []);
-  const handleSubmit = useCallback(
-    (e: React.FormEvent<HTMLFormElement>) => {
-      e.preventDefault();
-      dispatch(authOperations.logIn({ email, password }));
-      setEmail('');
-      setPassword('');
-    },
-    [email, password, dispatch],
-  );
+  };
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    dispatch(authOperations.logIn({ email, password }));
+    setEmail('');
+    setPassword('');
+  };
 
   return (
     <form className={style.form} onSubmit={handleSubmit} autoComplete="off">
